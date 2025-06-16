@@ -1,0 +1,9 @@
+package constant
+
+const (
+	LCJ_DEPLOY_VERSION = "1.0.0"
+
+	DEFAULT_AWS_CLOUD_PROVIDER         = "aws"
+	DEFAULT_APP_DEPLOYMENT_ENVIRONMENT = "develop"
+	DEFAULT_AWS_ASSUME_ROLE_DURATION   = 15 // minutes
+)
