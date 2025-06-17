@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/ljcheng999/ljc-app-deploy/pkg/constant"
-	awscloud "github.com/ljcheng999/ljc-app-deploy/pkg/util/awscloud/assume-role"
 	"github.com/ljcheng999/ljc-app-deploy/pkg/util/logger"
 	"github.com/spf13/cobra"
 )
@@ -17,11 +16,6 @@ var (
 	LogFormatText bool
 	LogFormatJson bool
 	LogVerbose    bool
-
-	CLOUD_PROVIDER         string
-	CLOUD_REGION           string
-	AWS_CLOUD_ROLE_ARN     string
-	APP_DEPLOY_ENVIRONMENT string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -49,10 +43,6 @@ func runRootCmd(c *cobra.Command, _ []string) {
 	if LogFormatJson {
 		logger.SetJsonLogger()
 	}
-
-	if CLOUD_PROVIDER == constant.DEFAULT_AWS_CLOUD_PROVIDER {
-		awscloud.AssumeRole(CLOUD_REGION, AWS_CLOUD_ROLE_ARN, APP_DEPLOY_ENVIRONMENT, constant.DEFAULT_AWS_ASSUME_ROLE_DURATION)
-	}
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -79,14 +69,4 @@ func init() {
 	// Global flag can be used from root command to any subcommand
 	RootCmd.PersistentFlags().BoolVar(&LogFormatText, "log-text", false, "Display text output format in the console. (default: false)")
 	RootCmd.PersistentFlags().BoolVar(&LogFormatJson, "log-json", false, "Display json output format in the console. (default: false)")
-	RootCmd.PersistentFlags().StringVar(&APP_DEPLOY_ENVIRONMENT, "env", constant.DEFAULT_APP_DEPLOYMENT_ENVIRONMENT, "Deployment environment. (default: develop)")
-
-	// Local flags
-	RootCmd.Flags().StringVar(&CLOUD_PROVIDER, "cloud-provider", "aws", "Public Cloud Provider")
-	if CLOUD_PROVIDER == constant.DEFAULT_AWS_CLOUD_PROVIDER {
-		RootCmd.Flags().StringVar(&CLOUD_REGION, "region", "us-east-1", "AWS region")
-		RootCmd.Flags().StringVar(&AWS_CLOUD_ROLE_ARN, "role-arn", "", "AWS role arn to be used")
-
-	}
-
 }

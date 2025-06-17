@@ -2,7 +2,6 @@ package awscloud
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"os"
 	"time"
@@ -13,15 +12,14 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sts"
 )
 
-func AssumeRole(awsRegion string, awsAssumeRoleString string, appDeployEnvironment string, assumeRoleDuration int64) {
-	slog.Info(awsRegion)
-	slog.Info(awsAssumeRoleString)
-	slog.Info(appDeployEnvironment)
+func AssumeRole(awsProvider string, awsRegion string, awsAssumeRoleString string, assumeRoleDuration int64) aws.Config {
+	slog.Info("Public cloud provider - " + awsProvider)
+	slog.Info("AWS region - " + awsRegion)
+	slog.Info("AWS role arn - " + awsAssumeRoleString)
 
-	assumeRoleSessionName := appDeployEnvironment + "-deployment-short-session"
+	assumeRoleSessionName := awsProvider + "-deployment-short-session"
 
-	ctx := context.TODO()
-	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(awsRegion))
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(awsRegion))
 	if err != nil {
 		slog.Error(err.Error())
 		os.Exit(1)
@@ -33,17 +31,7 @@ func AssumeRole(awsRegion string, awsAssumeRoleString string, appDeployEnvironme
 	})
 
 	cfg.Credentials = aws.NewCredentialsCache(provider)
-	creds, err := cfg.Credentials.Retrieve(context.Background())
-	if err != nil {
-		slog.Error(err.Error())
-		os.Exit(1)
-	}
-	if !creds.HasKeys() {
-		slog.Error("No credential keys returned")
-		os.Exit(1)
-	}
 
-	// fmt.Printf("%+v\n", cfg)
-	fmt.Printf("here - %+v\n", creds)
+	return cfg
 
 }

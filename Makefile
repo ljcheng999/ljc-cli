@@ -66,12 +66,19 @@ runh: ## runs the go binary. use additional options if required.
 lab: ## runs the go binary. use additional options if required.
 	make build
 	chmod +x $(APP_EXECUTABLE)
-	$(APP_EXECUTABLE) gitlab -h
+	$(APP_EXECUTABLE) gitlab \
+		--cloud-provider aws \
+		--region us-east-1 \
+		--role-arn arn:aws:iam::022985595394:role/CAPARole-local \
+		--env stage \
+		-c capi-cm-poc \
+		-r jc-helm-release \
+		--log-json 
 
-aws: ## runs the go binary. use additional options if required.
+labh: ## runs the go binary. use additional options if required.
 	make build
 	chmod +x $(APP_EXECUTABLE)
-	$(APP_EXECUTABLE) --cloud-provider aws --region us-east-1 --role-arn arn:aws:iam::022985595394:role/CAPARole-loca --log-json
+	$(APP_EXECUTABLE) gitlab -h
 
 ###############################################################################################################
 
