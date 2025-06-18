@@ -1,10 +1,5 @@
 package gitlab
 
-import (
-	"os"
-	"strings"
-)
-
 const (
 	CI_ENVIRONMENT_NAME  = "CI_ENVIRONMENT_NAME"
 	CI_COMMIT_REF_SLUG   = "CI_COMMIT_REF_SLUG"
@@ -30,5 +25,5 @@ func GetGitlabProjectInformation() {
 	//   echo "CI_PROJECT_NAMESPACE $CI_PROJECT_NAMESPACE" # split and grab first
 	//   echo "USER PROVIDED RELEASE VALUE (-r): $RELEASE"
 
-	var_gitlab_ci_environment := strings.ToLower(os.Getenv(CI_ENVIRONMENT_NAME))
+	// var_gitlab_ci_environment := strings.ToLower(os.Getenv(CI_ENVIRONMENT_NAME))
 }

@@ -70,9 +70,14 @@ lab: ## runs the go binary. use additional options if required.
 		--cloud-provider aws \
 		--region us-east-1 \
 		--role-arn arn:aws:iam::022985595394:role/CAPARole-local \
+		--kubeconfig /tmp/kubeconfig \
+		--chart-registry-url https://charts.bitnami.com/bitnami \
+		--chart-version 20.1.2 \
+		--chart nginx \
 		--env stage \
 		-c capi-cm-poc \
 		-r jc-helm-release \
+		-n cj-test
 		--log-json 
 
 labh: ## runs the go binary. use additional options if required.

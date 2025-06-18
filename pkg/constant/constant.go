@@ -11,12 +11,16 @@ var (
 	VAR_HELM_RELEASE_NAME             string
 	VAR_HELM_CHART_NAME               string
 	VAR_HELM_CHART_VERSION            string
+	VAR_HELM_CHART_FULL_REGISTRY_URL  string
+	VAR_HELM_CHART_USERNAME           string
+	VAR_HELM_CHART_PASSWORD           string
 	VAR_GITLAB_REPO_PROJECT_OVERWRITE string
 	VAR_GITLAB_APP_DEPLOY_ENVIRONMENT string
 )
 
 const (
-	LCJ_DEPLOY_VERSION = "1.0.0"
+	LCJ_DEPLOY_VERSION             = "1.0.0"
+	DEFAULT_HELM_CACHE_FOLDER_PATH = "/tmp/helm_cache_folder"
 
 	DEFAULT_VALUE_CLOUD_PROVIDER_NAME        = "aws"
 	DEFAULT_VALUE_AWS_REGION                 = "us-east-1"
@@ -40,6 +44,9 @@ const (
 	DEFAULT_FLAG_NAME_HELM_RELEASE_NAME_SINGLE_LETETR             = "r"
 	DEFAULT_FLAG_NAME_HELM_CHART_NAME                             = "chart"
 	DEFAULT_FLAG_NAME_HELM_CHART_VERSION                          = "chart-version"
+	DEFAULT_FLAG_NAME_HELM_CHART_FULL_REGISTRY_URL                = "chart-registry-url"
+	DEFAULT_FLAG_NAME_HELM_CHART_USERNAME                         = "username"
+	DEFAULT_FLAG_NAME_HELM_CHART_PASSWORD                         = "password"
 	DEFAULT_FLAG_NAME_GITLAB_REPO_PROJECT_OVERWRITE               = "project"
 	DEFAULT_FLAG_NAME_GITLAB_REPO_PROJECT_OVERWRITE_SINGLE_LETETR = "p"
 	DEFAULT_FLAG_NAME_GITLAB_APP_DEPLOY_ENVIRONMENT               = "env"

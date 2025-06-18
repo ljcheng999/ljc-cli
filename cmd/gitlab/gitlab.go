@@ -10,6 +10,7 @@ import (
 	"github.com/ljcheng999/ljc-app-deploy/cmd"
 	"github.com/ljcheng999/ljc-app-deploy/pkg/constant"
 	awscloud "github.com/ljcheng999/ljc-app-deploy/pkg/util/awscloud/assume-role"
+	helmc "github.com/ljcheng999/ljc-app-deploy/pkg/util/helmc"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -41,6 +42,7 @@ func runGitlabCommand(g *cobra.Command, _ []string) {
 		}
 	}
 
+	helmc.HelmDeployLogic(constant.VAR_HELM_CHART_FULL_REGISTRY_URL, constant.VAR_HELM_CHART_VERSION, constant.VAR_HELM_CHART_USERNAME, constant.VAR_HELM_CHART_PASSWORD, constant.VAR_KUBECOFNIG_LOCATION)
 }
 
 func init() {
@@ -57,9 +59,14 @@ func init() {
 	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_APP_DEPLOY_CLUSTER, constant.DEFAULT_FLAG_NAME_APP_DEPLOY_CLUSTER, constant.DEFAULT_FLAG_NAME_APP_DEPLOY_CLUSTER_SINGLE_LETETR, constant.DEFAULT_VALUE_EMPTY_STRING, "Deployment cluster name. (default: '')")
 	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_APP_DEPLOY_NAMESPACE, constant.DEFAULT_FLAG_NAME_APP_DEPLOY_CLUSTER_NAMESPACE, constant.DEFAULT_FLAG_NAME_APP_DEPLOY_CLUSTER_NAMESPACE_SINGLE_LETETR, constant.DEFAULT_VALUE_APP_DEPLOY_NAMESPACE, "Deployment namespace.")
 	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_HELM_FILE_VALUES_LOCATION, constant.DEFAULT_FLAG_NAME_HELM_FILE_VALUES_LOCATION, constant.DEFAULT_FLAG_NAME_HELM_FILE_VALUES_LOCATION_SINGLE_LETETR, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm deployment values file. (default: '')")
-	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_HELM_RELEASE_NAME, constant.DEFAULT_FLAG_NAME_HELM_RELEASE_NAME, constant.DEFAULT_FLAG_NAME_HELM_RELEASE_NAME_SINGLE_LETETR, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm deployment values file. (default: '')")
+
+	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_HELM_RELEASE_NAME, constant.DEFAULT_FLAG_NAME_HELM_RELEASE_NAME, constant.DEFAULT_FLAG_NAME_HELM_RELEASE_NAME_SINGLE_LETETR, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm release name. (default: '')")
+
 	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_HELM_CHART_NAME, constant.DEFAULT_FLAG_NAME_HELM_CHART_NAME, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm chart name. (default: '')")
 	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_HELM_CHART_VERSION, constant.DEFAULT_FLAG_NAME_HELM_CHART_VERSION, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm chart version. (default: '')")
+	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_HELM_CHART_FULL_REGISTRY_URL, constant.DEFAULT_FLAG_NAME_HELM_CHART_FULL_REGISTRY_URL, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm chart registry url.")
+	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_HELM_CHART_USERNAME, constant.DEFAULT_FLAG_NAME_HELM_CHART_USERNAME, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm chart username.")
+	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_HELM_CHART_PASSWORD, constant.DEFAULT_FLAG_NAME_HELM_CHART_PASSWORD, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm chart password.")
 	gitlabCmd.PersistentFlags().StringVarP(&constant.VAR_GITLAB_REPO_PROJECT_OVERWRITE, constant.DEFAULT_FLAG_NAME_GITLAB_REPO_PROJECT_OVERWRITE, constant.DEFAULT_FLAG_NAME_GITLAB_REPO_PROJECT_OVERWRITE_SINGLE_LETETR, constant.DEFAULT_VALUE_EMPTY_STRING, "Helm deployment project name.")
 	gitlabCmd.PersistentFlags().StringVar(&constant.VAR_GITLAB_APP_DEPLOY_ENVIRONMENT, constant.DEFAULT_FLAG_NAME_GITLAB_APP_DEPLOY_ENVIRONMENT, constant.DEFAULT_VALUE_APP_DEPLOYMENT_ENVIRONMENT, "Gitlab deployment environment.")
 
