@@ -63,6 +63,12 @@ runh: ## runs the go binary. use additional options if required.
 	chmod +x $(APP_EXECUTABLE)
 	$(APP_EXECUTABLE) -h
 
+
+
+# --chart-registry-url https://dachichang.github.io/helm-simple-web/simple-web \
+# 		--chart-version 1.1.1 \
+# 		--chart my-simple-web \
+
 lab: ## runs the go binary. use additional options if required.
 	make build
 	chmod +x $(APP_EXECUTABLE)
@@ -71,19 +77,25 @@ lab: ## runs the go binary. use additional options if required.
 		--region us-east-1 \
 		--role-arn arn:aws:iam::022985595394:role/CAPARole-local \
 		--kubeconfig /tmp/kubeconfig \
-		--chart-registry-url https://charts.bitnami.com/bitnami \
-		--chart-version 20.1.2 \
-		--chart nginx \
+		--chart-registry-url https://dachichang.github.io/helm-simple-web \
+		--chart-version 1.1.1 \
+		--chart simple-web \
 		--env stage \
 		-c capi-cm-poc \
-		-r jc-helm-release \
-		-n cj-test
-		--log-json 
+		-r jc-release \
+		-n default \
+		--log-json
+		
 
 labh: ## runs the go binary. use additional options if required.
 	make build
 	chmod +x $(APP_EXECUTABLE)
 	$(APP_EXECUTABLE) gitlab -h
+
+labg: ## runs the go binary. use additional options if required.
+	make build
+	chmod +x $(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) gitlab
 
 ###############################################################################################################
 

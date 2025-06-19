@@ -42,7 +42,20 @@ func runGitlabCommand(g *cobra.Command, _ []string) {
 		}
 	}
 
-	helmc.HelmDeployLogic(constant.VAR_HELM_CHART_FULL_REGISTRY_URL, constant.VAR_HELM_CHART_VERSION, constant.VAR_HELM_CHART_USERNAME, constant.VAR_HELM_CHART_PASSWORD, constant.VAR_KUBECOFNIG_LOCATION)
+	_, err := helmc.HelmDeployLogic(
+		constant.VAR_HELM_CHART_NAME,
+		constant.VAR_HELM_CHART_FULL_REGISTRY_URL,
+		constant.VAR_HELM_CHART_VERSION,
+		constant.VAR_HELM_CHART_USERNAME,
+		constant.VAR_HELM_CHART_PASSWORD,
+		constant.VAR_HELM_RELEASE_NAME,
+		constant.VAR_KUBECOFNIG_LOCATION,
+		constant.VAR_APP_DEPLOY_NAMESPACE,
+	)
+	if err != nil {
+		slog.Error("loader.Load - " + err.Error())
+		os.Exit(1)
+	}
 }
 
 func init() {
