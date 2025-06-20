@@ -32,7 +32,7 @@ func HelmDeployLogic(
 	slog.Info("helmChartVersion - " + helmChartVersion)
 	slog.Info("kubeConfigPath - " + kubeConfigPath)
 	slog.Info("helmChartUsername - " + helmChartUsername)
-	slog.Info("helmChartPassword - " + helmChartPassword)
+	// slog.Info("helmChartPassword - " + helmChartPassword)
 	slog.Info("helmChartReleaseName - " + helmChartReleaseName)
 	slog.Info("targetNamespace - " + targetNamespace)
 
@@ -87,7 +87,13 @@ func HelmDeployLogic(
 }
 
 func initActionConfig(targetNamespace, kubeConfigPath string) (*action.Configuration, *cli.EnvSettings, error) {
-	settings := cli.New()
+	settings := &cli.EnvSettings{
+		// RepositoryCache is the path to the repository cache directory.
+		RepositoryCache: "/tmp/cache/helm/repository",
+		// RepositoryConfig is the path to the repositories file.
+		// RepositoryConfig: "/tmp",
+	}
+
 	actionConfig := new(action.Configuration)
 
 	kubeConfigFlags, err := getKubeConfig(kubeConfigPath, targetNamespace)
@@ -102,6 +108,24 @@ func initActionConfig(targetNamespace, kubeConfigPath string) (*action.Configura
 	}
 	return actionConfig, settings, err
 }
+
+// func initActionConfig(targetNamespace, kubeConfigPath string) (*action.Configuration, *cli.EnvSettings, error) {
+// 	settings := cli.New()
+
+// 	actionConfig := new(action.Configuration)
+
+// 	kubeConfigFlags, err := getKubeConfig(kubeConfigPath, targetNamespace)
+// 	if err != nil {
+// 		slog.Error("getKubeConfig - " + err.Error())
+// 		return nil, nil, err
+// 	}
+
+// 	err = actionConfig.Init(kubeConfigFlags, targetNamespace, util.GetEnvOrDefault("HELM_DRIVER", "secrets"), log.Printf)
+// 	if err != nil {
+// 		slog.Error(err.Error())
+// 	}
+// 	return actionConfig, settings, err
+// }
 
 func getChart(chartPathOption action.ChartPathOptions, chartName string, settings *cli.EnvSettings) (*chart.Chart, error) {
 
@@ -135,8 +159,6 @@ func getKubeConfig(kubeConfigPath string, targetNamespace string) (*genericcliop
 
 	} else {
 		kubeConfig = kubeConfigPath
-		// kubeconfig = "/tmp/kubeconfig"
-		// kubeconfig = fmt.Sprintf("%s/.kube/config", home)
 	}
 	slog.Info("kubeconfig location - " + kubeConfig)
 

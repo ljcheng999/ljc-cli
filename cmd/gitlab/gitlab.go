@@ -6,6 +6,7 @@ package cmd
 import (
 	"log/slog"
 	"os"
+	"strings"
 
 	"github.com/ljcheng999/ljc-app-deploy/cmd"
 	"github.com/ljcheng999/ljc-app-deploy/pkg/constant"
@@ -23,11 +24,9 @@ var gitlabCmd = &cobra.Command{
 	Run:   runGitlabCommand,
 }
 
-func runGitlabCommand(g *cobra.Command, _ []string) {
-	// display help if no flags provided
-	g.Help()
+func runGitlabCommand(g *cobra.Command, args []string) {
 
-	slog.Info("gitlab subcommand get called!")
+	slog.Info("gitlab subcommand got called!")
 
 	if constant.VAR_CLOUD_PROVIDER == constant.DEFAULT_VALUE_CLOUD_PROVIDER_NAME {
 		if constant.VAR_KUBECOFNIG_LOCATION == "" {
@@ -43,14 +42,14 @@ func runGitlabCommand(g *cobra.Command, _ []string) {
 	}
 
 	_, err := helmc.HelmDeployLogic(
-		constant.VAR_HELM_CHART_NAME,
-		constant.VAR_HELM_CHART_FULL_REGISTRY_URL,
-		constant.VAR_HELM_CHART_VERSION,
-		constant.VAR_HELM_CHART_USERNAME,
-		constant.VAR_HELM_CHART_PASSWORD,
-		constant.VAR_HELM_RELEASE_NAME,
-		constant.VAR_KUBECOFNIG_LOCATION,
-		constant.VAR_APP_DEPLOY_NAMESPACE,
+		strings.ToLower(constant.VAR_HELM_CHART_NAME),
+		strings.ToLower(constant.VAR_HELM_CHART_FULL_REGISTRY_URL),
+		strings.ToLower(constant.VAR_HELM_CHART_VERSION),
+		strings.ToLower(constant.VAR_HELM_CHART_USERNAME),
+		strings.ToLower(constant.VAR_HELM_CHART_PASSWORD),
+		strings.ToLower(constant.VAR_HELM_RELEASE_NAME),
+		strings.ToLower(constant.VAR_KUBECOFNIG_LOCATION),
+		strings.ToLower(constant.VAR_APP_DEPLOY_NAMESPACE),
 	)
 	if err != nil {
 		slog.Error("loader.Load - " + err.Error())
