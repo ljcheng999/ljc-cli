@@ -8,10 +8,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ljcheng999/ljc-app-deploy/cmd"
-	"github.com/ljcheng999/ljc-app-deploy/pkg/constant"
-	awscloud "github.com/ljcheng999/ljc-app-deploy/pkg/util/awscloud/assume-role"
-	helmc "github.com/ljcheng999/ljc-app-deploy/pkg/util/helmc"
+	"github.com/ljcheng999/ljc-deploy/cmd"
+	"github.com/ljcheng999/ljc-deploy/pkg/constant"
+	awscloud "github.com/ljcheng999/ljc-deploy/pkg/util/awscloud/assume-role"
+	helmc "github.com/ljcheng999/ljc-deploy/pkg/util/helmc"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

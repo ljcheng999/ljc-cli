@@ -49,8 +49,9 @@ coverage: ## displays test coverage report in html mode
 ## Build
 build: ## build the go application
 	mkdir -p bin/
-	go build -o $(APP_EXECUTABLE)
+	go build -ldflags="-w -s" -o $(APP_EXECUTABLE)
 	@echo "Build passed"
+#go build -o $(APP_EXECUTABLE)
 
 run: ## runs the go binary. use additional options if required.
 	make build
@@ -142,3 +143,19 @@ help: ## Show this help.
 		if (/^[a-zA-Z_-]+:.*?##.*$$/) {printf "    ${YELLOW}%-20s${GREEN}%s${RESET}\n", $$1, $$2} \
 		else if (/^## .*$$/) {printf "  ${CYAN}%s${RESET}\n", substr($$1,4)} \
 		}' $(MAKEFILE_LIST)
+
+
+###### Dockerfile
+include .env
+DOCKER_IMAGE ?= jcheng919/ljc-deploy
+DOCKER_TAG ?= 1.0.0
+
+docker_build:
+	@docker buildx build --platform=${TARGETOS}/${TARGETARCH} -f images/ljc-deploy/Dockerfile \
+	  --build-arg TARGETOS=${TARGETOS} \
+	  --build-arg TARGETARCH=${TARGETARCH} \
+	  -t $(DOCKER_IMAGE):$(DOCKER_TAG) .
+
+docker_push:
+	# Push to DockerHub
+	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)

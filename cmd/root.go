@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ljcheng999/ljc-app-deploy/pkg/constant"
-	"github.com/ljcheng999/ljc-app-deploy/pkg/util/logger"
+	"github.com/ljcheng999/ljc-deploy/pkg/constant"
+	"github.com/ljcheng999/ljc-deploy/pkg/util/logger"
 	"github.com/spf13/cobra"
 )
 
