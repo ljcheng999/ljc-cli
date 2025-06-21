@@ -17,10 +17,10 @@ env:
   DEFAULT_DOCKERFILE_NAME: Dockerfile
 
 jobs:
-  docker-ljc-deploy-push-image: # job name
-    runs-on: ubuntu-latest # runner name : (ubuntu latest version)
+  docker-ljc-deploy-push-image:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 # first action : checkout source code
+      - uses: actions/checkout@v2
 
       - name: Set ENV variables
         run: |
