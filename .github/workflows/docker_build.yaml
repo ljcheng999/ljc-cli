@@ -1,4 +1,4 @@
-name: "docker build and push for ljc-deploy"
+name: "docker build and push for ljc-go-cli"
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  REPO_NAME: ${{secrets.REPO_NAME}}
   TARGETOS: linux
   TARGETARCH: amd64
   DEFAULT_DOCKERFILE_NAME: Dockerfile
