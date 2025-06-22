@@ -5,25 +5,19 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/ljcheng999/ljc-deploy/pkg/constant"
-	"github.com/ljcheng999/ljc-deploy/pkg/util/logger"
+	"github.com/ljcheng999/ljc-go-cli/pkg/constant"
 	"github.com/spf13/cobra"
-)
-
-var (
-	LogFormatText bool
-	LogFormatJson bool
-	LogVerbose    bool
 )
 
 // rootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Version: constant.LCJ_DEPLOY_VERSION,
-	Use:     "ljc-deploy",
+	Version: constant.LJC_GO_CLI_VERSION,
+	Use:     "ljc-go-cli",
 	Short:   "A tool to deploy your application code to the cloud",
-	Long: `ljc-deploy is a cli tool to deploy your application with helm wrapper
+	Long: `ljc-go-cli is a cli tool to deploy your application with helm wrapper
 to the Kubernetes cluster`,
 	CompletionOptions: cobra.CompletionOptions{
 		HiddenDefaultCmd: true, // hides cmd
@@ -37,12 +31,6 @@ func runRootCmd(c *cobra.Command, _ []string) {
 	// display help if no subcommand provided
 	c.Help()
 
-	if LogFormatText {
-		logger.SetTextLogger()
-	}
-	if LogFormatJson {
-		logger.SetJsonLogger()
-	}
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -67,6 +55,10 @@ func Execute() {
 func init() {
 
 	// Global flag can be used from root command to any subcommand
-	RootCmd.PersistentFlags().BoolVar(&LogFormatText, "log-text", false, "Display text output format in the console. (default: false)")
-	RootCmd.PersistentFlags().BoolVar(&LogFormatJson, "log-json", false, "Display json output format in the console. (default: false)")
+	RootCmd.PersistentFlags().BoolVar(&constant.VAR_LOG_FORMAT_TEXT, constant.DEFAULT_FLAG_NAME_LOG_FORMAT_TEXT_NAME, false, "Display text output format in the console. (default: false)")
+	RootCmd.PersistentFlags().BoolVar(&constant.VAR_LOG_FORMAT_JSON, constant.DEFAULT_FLAG_NAME_LOG_FORMAT_JSON_NAME, false, "Display json output format in the console. (default: false)")
+
+	log.Println("*******************************************************************")
+	log.Println("Welcome to use lcj-go-cli command. The system will start getting information and executing the deployment")
+	log.Println("*******************************************************************")
 }

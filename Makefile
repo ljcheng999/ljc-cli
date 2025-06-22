@@ -1,6 +1,6 @@
 export GO111MODULE=on
 # update app name. this is the name of binary
-APP=ljc-deploy
+APP=ljc-go-cli
 APP_EXECUTABLE="./bin/$(APP)"
 ALL_PACKAGES=$(shell go list ./... | grep -v /vendor)
 SHELL := /bin/bash # Use bash syntax
@@ -51,7 +51,6 @@ build: ## build the go application
 	mkdir -p bin/
 	go build -ldflags="-w -s" -o $(APP_EXECUTABLE)
 	@echo "Build passed"
-#go build -o $(APP_EXECUTABLE)
 
 run: ## runs the go binary. use additional options if required.
 	make build
@@ -64,11 +63,28 @@ runh: ## runs the go binary. use additional options if required.
 	chmod +x $(APP_EXECUTABLE)
 	$(APP_EXECUTABLE) -h
 
+dh:
+	make build
+	chmod +x $(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) deploy -h
 
-
-# --chart-registry-url https://dachichang.github.io/helm-simple-web/simple-web \
-# 		--chart-version 1.1.1 \
-# 		--chart my-simple-web \
+d:
+	make build
+	chmod +x $(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) deploy \
+		--git gitlab \
+		--cloud-provider aws \
+		--region us-east-1 \
+		--role-arn arn:aws:iam::022985595394:role/CAPARole-local \
+		--kubeconfig /tmp/kubeconfig \
+		--chart-registry-url https://dachichang.github.io/helm-simple-web \
+		--chart-version 1.1.1 \
+		--chart simple-web \
+		-c capi-cm-poc \
+		-r jc-release \
+		-n default \
+		--log-json
+		
 
 lab: ## runs the go binary. use additional options if required.
 	make build
@@ -97,6 +113,16 @@ labg: ## runs the go binary. use additional options if required.
 	make build
 	chmod +x $(APP_EXECUTABLE)
 	$(APP_EXECUTABLE) gitlab
+
+hubh: ## runs the go binary. use additional options if required.
+	make build
+	chmod +x $(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) github -h
+
+hubg: ## runs the go binary. use additional options if required.
+	make build
+	chmod +x $(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) github
 
 ###############################################################################################################
 

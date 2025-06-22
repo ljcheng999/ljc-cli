@@ -1,12 +1,11 @@
 package helmc
 
 import (
-	"fmt"
 	"log"
 	"log/slog"
 	"os"
 
-	"github.com/ljcheng999/ljc-deploy/pkg/util"
+	"github.com/ljcheng999/ljc-go-cli/pkg/util"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -27,6 +26,7 @@ func HelmDeployLogic(
 	kubeConfigPath string,
 	targetNamespace string) (*release.Release, error) {
 
+	slog.Info("-------------------HELM CHART INFO-------------------")
 	slog.Info("helmChartName - " + helmChartName)
 	slog.Info("helmChartRegistryUrl - " + helmChartFullRegistryUrl)
 	slog.Info("helmChartVersion - " + helmChartVersion)
@@ -35,6 +35,7 @@ func HelmDeployLogic(
 	// slog.Info("helmChartPassword - " + helmChartPassword)
 	slog.Info("helmChartReleaseName - " + helmChartReleaseName)
 	slog.Info("targetNamespace - " + targetNamespace)
+	slog.Info("-------------------HELM CHART INFO END -------------------")
 
 	actionConfig, settings, err := initActionConfig(targetNamespace, kubeConfigPath)
 	if err != nil {
@@ -68,18 +69,16 @@ func HelmDeployLogic(
 		clientInstall.ChartPathOptions = chartPathOptions
 
 		slog.Info("Performing the install release name " + helmChartReleaseName + " with " + helmChartName)
-		fmt.Println(clientInstall)
-
+		// fmt.Println(clientInstall)
 		rel, requestError = clientInstall.Run(loaderChart, nil)
-	} else {
 
+	} else {
 		clientUpgrade := action.NewUpgrade(actionConfig)
 		clientUpgrade.Namespace = targetNamespace
 		clientUpgrade.ChartPathOptions = chartPathOptions
 
 		slog.Info("Performing the upgrade release name " + helmChartReleaseName + " with " + helmChartName)
-		fmt.Println(clientUpgrade)
-
+		// fmt.Println(clientUpgrade)
 		rel, requestError = clientUpgrade.Run(helmChartReleaseName, loaderChart, nil)
 	}
 
@@ -130,7 +129,7 @@ func initActionConfig(targetNamespace, kubeConfigPath string) (*action.Configura
 func getChart(chartPathOption action.ChartPathOptions, chartName string, settings *cli.EnvSettings) (*chart.Chart, error) {
 
 	chartPath, err := chartPathOption.LocateChart(chartName, settings)
-	slog.Info("chartPath - " + chartPath)
+	slog.Info("Looking for helm chart at " + chartPath)
 	if err != nil {
 		return nil, err
 	}

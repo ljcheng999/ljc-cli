@@ -4,8 +4,8 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package main
 
 import (
-	"github.com/ljcheng999/ljc-app-deploy/cmd"
-	_ "github.com/ljcheng999/ljc-app-deploy/cmd/gitlab"
+	"github.com/ljcheng999/ljc-go-cli/cmd"
+	_ "github.com/ljcheng999/ljc-go-cli/cmd/deploy"
 )
 
 func main() {
