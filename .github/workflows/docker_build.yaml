@@ -21,6 +21,7 @@ jobs:
       - name: Set ENV variables
         run: |
           echo "GITHUB_REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+          dcho "GITHUB_REPO_NAME - $GITHUB_REPO_NAME"
 
       - name: docker login
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
