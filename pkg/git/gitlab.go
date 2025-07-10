@@ -3,8 +3,8 @@ package git
 import (
 	"log/slog"
 
-	"github.com/ljcheng999/ljc-go-cli/pkg/constant"
-	"github.com/ljcheng999/ljc-go-cli/pkg/util"
+	"github.com/ljcheng999/ljc-cli/pkg/constant"
+	"github.com/ljcheng999/ljc-cli/pkg/util"
 )
 
 const (

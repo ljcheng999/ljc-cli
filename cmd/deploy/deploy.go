@@ -8,19 +8,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ljcheng999/ljc-go-cli/cmd"
-	"github.com/ljcheng999/ljc-go-cli/pkg/constant"
-	git "github.com/ljcheng999/ljc-go-cli/pkg/git"
-	awscloud "github.com/ljcheng999/ljc-go-cli/pkg/util/awscloud/assume-role"
-	"github.com/ljcheng999/ljc-go-cli/pkg/util/helmc"
-	"github.com/ljcheng999/ljc-go-cli/pkg/util/logger"
+	"github.com/ljcheng999/ljc-cli/cmd"
+	"github.com/ljcheng999/ljc-cli/pkg/constant"
+	git "github.com/ljcheng999/ljc-cli/pkg/git"
+	awscloud "github.com/ljcheng999/ljc-cli/pkg/util/awscloud/assume-role"
+	"github.com/ljcheng999/ljc-cli/pkg/util/helmc"
+	"github.com/ljcheng999/ljc-cli/pkg/util/logger"
 	"github.com/spf13/cobra"
 )
 
 // deployCmd represents the deploy command
 var deployCmd = &cobra.Command{
 	Use:   "deploy",
-	Short: "A subcommand where the ljc-go-cli is to deploy the application",
+	Short: "A subcommand where the ljc-cli is to deploy the application",
 	Long:  `A subcommand where the public cloud provider is targeting to deploy your application with Helm.`,
 	Run:   runDeployCommand,
 }

@@ -1,6 +1,6 @@
 export GO111MODULE=on
 # update app name. this is the name of binary
-APP=ljc-go-cli
+APP=ljc-cli
 APP_EXECUTABLE="./bin/$(APP)"
 ALL_PACKAGES=$(shell go list ./... | grep -v /vendor)
 SHELL := /bin/bash # Use bash syntax
@@ -84,6 +84,12 @@ d:
 		-r jc-release \
 		-n default \
 		--log-json
+
+change:
+	export CUR="github.com/ljcheng999/ljc-cli"
+	export NEW="github.com/ljcheng999/ljc-cli"
+	go mod edit -module github.com/ljcheng999/ljc-cli
+	find . -type f -name '*.go' -exec perl -pi -e 's/${CUR}/${NEW}/g' {} \;
 
 ###############################################################################################################
 

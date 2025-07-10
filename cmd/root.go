@@ -8,16 +8,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/ljcheng999/ljc-go-cli/pkg/constant"
+	"github.com/ljcheng999/ljc-cli/pkg/constant"
 	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Version: constant.LJC_GO_CLI_VERSION,
-	Use:     "ljc-go-cli",
+	Use:     "ljc-cli",
 	Short:   "A tool to deploy your application code to the cloud",
-	Long: `ljc-go-cli is a cli tool to deploy your application with helm wrapper
+	Long: `ljc-cli is a cli tool to deploy your application with helm wrapper
 to the Kubernetes cluster`,
 	CompletionOptions: cobra.CompletionOptions{
 		HiddenDefaultCmd: true, // hides cmd

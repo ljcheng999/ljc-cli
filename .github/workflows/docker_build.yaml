@@ -1,4 +1,4 @@
-name: "docker build and push for ljc-go-cli"
+name: "docker build and push for ljc-cli"
 
 on:
   push:

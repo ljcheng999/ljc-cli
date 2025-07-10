@@ -1,35 +1,35 @@
-# ljc-go-cli projects
+# ljc-cli projects
 
-ljc-go-cli is wrapper on top of Helm and Public Cloud Provider that contains a collection of Go programs and libraries to deploy your application in pipeline
+ljc-cli is wrapper on top of Helm and Public Cloud Provider that contains a collection of Go programs and libraries to deploy your application in pipeline
 
 ## Clone the project
 
 ```
-$ git clone https://github.com/ljcheng999/ljc-go-cli.git
-$ cd ljc-go-cli
+$ git clone https://github.com/ljcheng999/ljc-cli.git
+$ cd ljc-cli
 ```
 
 ## Examples:
 
 ```
-$ cd ljc-go-cli
+$ cd ljc-cli
 $ make build
-$ ./bin/ljc-go-cli -help
+$ ./bin/ljc-cli -help
 
 //output
 Usage:
-  ljc-go-cli [flags]
-  ljc-go-cli [command]
+  ljc-cli [flags]
+  ljc-cli [command]
 
 Available Commands:
-  deploy      A subcommand where the ljc-go-cli is to deploy the application
+  deploy      A subcommand where the ljc-cli is to deploy the application
   help        Help about any command
 
 Flags:
-  -h, --help       help for ljc-go-cli
+  -h, --help       help for ljc-cli
       --log-json   Display json output format in the console. (default: false)
       --log-text   Display text output format in the console. (default: false)
-  -v, --version    version for ljc-go-cli
+  -v, --version    version for ljc-cli
 ```
 
 ```
@@ -38,29 +38,29 @@ $ make runh
 
 //Output
 Usage:
-  ljc-go-cli [flags]
-  ljc-go-cli [command]
+  ljc-cli [flags]
+  ljc-cli [command]
 
 Available Commands:
-  deploy      A subcommand where the ljc-go-cli is to deploy the application
+  deploy      A subcommand where the ljc-cli is to deploy the application
   help        Help about any command
 
 Flags:
-  -h, --help       help for ljc-go-cli
+  -h, --help       help for ljc-cli
       --log-json   Display json output format in the console. (default: false)
       --log-text   Display text output format in the console. (default: false)
-  -v, --version    version for ljc-go-cli
+  -v, --version    version for ljc-cli
 ```
 
 Gitlab subcommand:
 
 ```
-$ cd ljc-go-cli
+$ cd ljc-cli
 $ make dh
 
 //Output
 Usage:
-  ljc-go-cli deploy [flags]
+  ljc-cli deploy [flags]
 
 Flags:
       --chart string                Helm chart name. (default: '')
@@ -84,9 +84,9 @@ Global Flags:
       --log-text   Display text output format in the console. (default: false)
 ```
 
-The `ljc-go-cli` command covers:
+The `ljc-cli` command covers:
 
 - The basic of an executable command
 - Logging in text/json format ([log/slog](https://pkg.go.dev/log/slog)) - the `log/slog` package supports structured logging. It features a flexible backend in the form of a `Handler` format. This guide can help you write your own handler.
 
-The `deploy` subcommand covers many flags, run `--help` flag with `ljc-go-cli deploy --help` for more information
+The `deploy` subcommand covers many flags, run `--help` flag with `ljc-cli deploy --help` for more information
